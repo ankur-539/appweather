@@ -21,7 +21,7 @@ function App() {
   };
   useEffect(() => {
     api(city);
-  }, [city]);
+  }, []);
 
   return (
     <div className='bg'>
