@@ -9,21 +9,25 @@ function App() {
   const [weather, setWether] = useState(null)
   const [city, setCity] = useState("noida");
 
+
+
   const api = (cityName) => {
-    axios.get(`https://api.weatherapi.com/v1/forecast.json?key=b3475b1d3c964769aa850722260704&q=${cityName}&days=1&aqi=no&alerts=no`).then((d) => {
+    const API_KEY = process.env.REACT_APP_API_KEY;
+
+    axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityName}&days=1&aqi=no&alerts=no`).then((d) => {
       console.log(d.data);
       setWether(d.data);
     })
   };
   useEffect(() => {
-  api(city);
-}, [city]);
+    api(city);
+  }, [city]);
 
   return (
     <div className='bg'>
       <div className="font-bold text-amber-900 p-3">Weather app</div>
       <div className='nav'>
-        <input type="text" placeholder='Enter city' value={city} onChange={(e) => setCity(e.target.value)}/>
+        <input type="text" placeholder='Enter city' value={city} onChange={(e) => setCity(e.target.value)} />
         <button onClick={() => api(city)}>Search</button>
       </div>
       <div className="items">
