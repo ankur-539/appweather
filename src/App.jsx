@@ -10,14 +10,14 @@ function App() {
   const [city, setCity] = useState("noida");
 
   const api = (cityName) => {
-    axios.get(`http://api.weatherapi.com/v1/forecast.json?key=b3475b1d3c964769aa850722260704&q=${cityName}&days=1&aqi=no&alerts=no`).then((d) => {
+    axios.get(`https://api.weatherapi.com/v1/forecast.json?key=b3475b1d3c964769aa850722260704&q=${cityName}&days=1&aqi=no&alerts=no`).then((d) => {
       console.log(d.data);
       setWether(d.data);
     })
   };
   useEffect(() => {
   api(city);
-}, []);
+}, [city]);
 
   return (
     <div className='bg'>
