@@ -79,7 +79,7 @@ function App() {
 
 
         <div className='right-container  bg-amber-100/20 rounded-2xl w-lg flex flex-col gap-4 px-8 py-5 h-[615px]  overflow-auto scroll-hidden'>
-          <div className='flex justify-between'><p className='font-medium text-2xl fnt-3'>Hourly Forecast</p><button className='rounded-lg  bg-amber-100/20  px-4 py-2 flex justify-center fnt-4  gap-2'>Tuesday<FaChevronDown className='mt-1' /></button></div>
+          <div className='flex justify-between'><p className='font-medium text-2xl pb-2 fnt-3'>Hourly Forecast ~</p></div>
           {weather?.forecast?.forecastday?.[0]?.hour?.map((hour, index) => {
             const time = new Date(hour.time).toLocaleTimeString("en-US", {
               hour: "2-digit",
