@@ -1,95 +1,102 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { FaWind } from "react-icons/fa";
-import { GiLifeTap } from "react-icons/gi";
-import { TbTemperatureSun } from "react-icons/tb";
+import React, { useEffect, useState } from 'react'
+import { GiDandelionFlower } from "react-icons/gi";
+import { TbSettings } from "react-icons/tb";
+import { FaChevronDown } from "react-icons/fa";
+import { IoIosSearch } from "react-icons/io";
+import axios from 'axios';
 
 function App() {
 
-  const [weather, setWether] = useState(null)
-  const [city, setCity] = useState("noida");
-
-
+  const [city, setCity] = useState("siwan");
+  const [weather, setWeather] = useState(null);
 
   const api = (cityName) => {
     const API_KEY = process.env.REACT_APP_API_KEY;
-
-    axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityName}&days=1&aqi=no&alerts=no`).then((d) => {
+    axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityName}&days=7&aqi=no&alerts=no`).then((d) => {
       console.log(d.data);
-      setWether(d.data);
+      setWeather(d.data);
     })
   };
+
   useEffect(() => {
-    api(city);
-  }, []);
+    api(city)
+  }, [])
+
+
 
   return (
-    <div className='bg'>
-      <div className="font-bold text-amber-900 p-3">Weather app</div>
-      <div className='nav'>
-        <input type="text" placeholder='Enter city' value={city} onChange={(e) => setCity(e.target.value)} />
-        <button onClick={() => api(city)}>Search</button>
+    <div className='bg-[#02012B] min-h-screen w-full text-white overflow-hidden pb-10'>
+      <div className='px-15 py-10 flex justify-between header'>
+        <p className='flex px-2 py-1 gap-1 text-center font-medium'><GiDandelionFlower className='text-yellow-400  text-2xl' />Weather Now</p>
+        <p className='flex gap-2 rounded bg-amber-100/30 px-2 py-1'><TbSettings className='mt-1' /> Units <FaChevronDown className='mt-1' /></p>
       </div>
-      <div className="items">
-        <div className="left"></div>
-        <div className="right text-white ">
-          <p className='text-2xl font-bold'>{weather?.location?.name}, {weather?.location?.country}</p>
-          <p className='text-xl '>sunny</p>
-          <p className='text-7xl font-bold'>{weather?.current.temp_c}°C</p>
-          <p className='text-xl font-medium'>feel like {weather?.current.feelslike_c}°C</p>
-        </div>
+      <div className='pb-12 text-center font-mono text-4xl font-bold'>How's the sky looking today?</div>
+
+      <div className='flex gap-5 justify-center pb-10 search-container'>
+        <p className='relative'><IoIosSearch className='absolute left-3.5 top-4' /><input type="text" name="" id="" onChange={(e)=>{setCity(e.target.value)}} placeholder='Search for a place...' className='rounded-lg bg-amber-100/30 px-10 py-3 w-96' /></p>
+        <button className='bg-blue-700 font-medium px-5 py-3 rounded-lg ' onClick={()=>api(city)}>Search</button>
       </div>
-      <div className="flex justify-center mt-5">
-        <div className=" bg-violet-800/40 rounded-lg w-4/6 flex justify-around p-4 text-white">
-          {/* <p className='text-xl flex gap-3'><TbTemperatureSun className=" mt-1.5" />29°C High/18°C</p> */}
-          <p className='text-xl flex gap-3'>
-            <TbTemperatureSun className="mt-1.5" />
-            {weather?.forecast?.forecastday?.[0]?.day?.maxtemp_c}°C /
-            {weather?.forecast?.forecastday?.[0]?.day?.mintemp_c}°C
-          </p>
-          <p className='text-2xl'>|</p>
-          <p className='text-xl flex gap-3'><FaWind className=" mt-1.5" />{weather?.current.wind_kph} km/h</p>
-          <p className='text-2xl'>|</p>
-          <p className='text-xl flex gap-3'><GiLifeTap className=" mt-1.5" />{weather?.current.humidity}% Humidity</p>
-        </div>
-      </div>
-      <div className="flex justify-center mt-6">
-        <div className=" bg-violet-800/40 rounded-t-lg w-4/6 p-2 text-white font-bold">
-          Today's Forcast
-        </div>
-      </div>
-      <div className="flex justify-center">
-        <div className=" bg-white rounded-b-lg w-4/6 p-2 flex ">
-          <div className="border-r text-center p-5 w-40 ">
-            <p className="text-xl font-medium" >Now</p>
-            <p>{weather?.current.temp_c}°C</p>
+
+      <div className=' flex gap-5 data-container items-stretch mx-20'>
+        <div className=' w-3/5 left-container'>
+          <div className='bg-linear-to-r from-cyan-500 to-blue-500/60 px-5 py-20 flex justify-between rounded-2xl abc'>
+            <div className=' flex flex-col justify-center fnt-2 '>
+              <p className='text-3xl font-medium '>{weather?.location.name}, {weather?.location.country}</p>
+              <p className='text-lg opacity-75 fnt-2'>{weather?.forecast?.forecastday?.[0]?.date}</p>
+            </div>
+            <div className='flex items-center gap-5'>
+              <p className='text-lg opacity-75'><img className='w-24' src={weather?.current?.condition.icon} alt="" /></p>
+              <p className='text-8xl font-medium fnt-1'>{weather?.current?.temp_c}°C</p>
+            </div>
           </div>
-          <div className="border-r text-center p-5 w-40 ">
-            <p className="text-xl font-medium" >8:00 am</p>
-            <p>{weather?.forecast?.forecastday?.[0]?.hour[8].temp_c}°C</p>
+
+          <div className='mt-7 flex justify-evenly gap-2 tabs-1'>
+            <div className='p-5 flex-1 rounded-xl bg-amber-100/20 aa'><p className='text-xl opacity-60 mb-4'>Feel_Like</p><p className='text-3xl'>{weather?.current?.feelslike_c}</p></div>
+            <div className='p-5 flex-1 rounded-xl bg-amber-100/20 aa'><p className='text-xl opacity-60 mb-4'>Humidity</p><p className='text-3xl'>{weather?.current?.humidity}</p></div>
+            <div className='p-5 flex-1 rounded-xl bg-amber-100/20 aa'><p className='text-xl opacity-60 mb-4'>Pressure</p><p className='text-3xl'>{weather?.current?.pressure_in}</p></div>
+            <div className='p-5 flex-1 rounded-xl bg-amber-100/20 aa'><p className='text-xl opacity-60 mb-4'>Wind</p><h1 className='text-3xl flex gap-2'>{weather?.current?.wind_kph}<p className='text-lg pt-2.5'>km/h</p></h1></div>
           </div>
-          <div className="border-r text-center p-5 w-40 ">
-            <p className="text-xl font-medium" >11:00 am</p>
-            <p>{weather?.forecast?.forecastday?.[0]?.hour[11].temp_c}°C</p>
-          </div>
-          <div className="border-r text-center p-5 w-40 ">
-            <p className="text-xl font-medium" >1:00 pm</p>
-            <p>{weather?.forecast?.forecastday?.[0]?.hour[13].temp_c}°C</p>
-          </div>
-          <div className="border-r text-center p-5 w-40 ">
-            <p className="text-xl font-medium" >4:00 pm</p>
-            <p>{weather?.forecast?.forecastday?.[0]?.hour[16].temp_c}°C</p>
-          </div>
-          <div className="border-r text-center p-5 w-40 ">
-            <p className="text-xl font-medium" >7:00 pm</p>
-            <p>{weather?.forecast?.forecastday?.[0]?.hour[19].temp_c}°C</p>
-          </div>
-          <div className=" p-5 text-center w-40">
-            <p className="text-xl font-medium" >10:00pm</p>
-            <p>{weather?.forecast?.forecastday?.[0]?.hour[22].temp_c}°C</p>
+          <div className='text-xl mt-7 mb-4 ps-1 font-medium'>Daily forecast</div>
+
+          <div className='flex justify-evenly flex-wrap gap-5 tabs-1'>
+            {weather?.forecast?.forecastday?.map((day, index) => {
+              const dayName = new Date(day.date).toLocaleDateString("en-US", {
+                weekday: "short"
+              });
+              return (
+                <div key={index} className='p-5 text-center flex-1 rounded-xl bg-amber-100/20'>
+                  <p className='mb-2 font-medium'>{dayName}</p>
+                  <img src={day.day.condition.icon} alt="" className="mx-auto w-10" />
+                  <div className='flex justify-between text-[12px] mt-2'>
+                    <p>{day.day.mintemp_c}°</p>
+                    <p>{day.day.maxtemp_c}°</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
+
+
+        <div className='right-container  bg-amber-100/20 rounded-2xl w-lg flex flex-col gap-4 px-8 py-5 h-[615px]  overflow-auto scroll-hidden'>
+          <div className='flex justify-between'><p className='font-medium text-2xl fnt-3'>Hourly Forecast</p><button className='rounded-lg  bg-amber-100/20  px-4 py-2 flex justify-center fnt-4  gap-2'>Tuesday<FaChevronDown className='mt-1' /></button></div>
+          {weather?.forecast?.forecastday?.[0]?.hour?.map((hour, index) => {
+            const time = new Date(hour.time).toLocaleTimeString("en-US", {
+              hour: "2-digit",
+              minute: "2-digit"
+            });
+
+            return (
+              <div key={index} className='bg-amber-100/10 border border-zinc-500 p-4 rounded-xl flex items-center'>
+                <img src={hour.condition.icon} alt="" className='w-5 flex-1 pr-3'/>
+                <p className='flex-3 text-sm'>{time}</p>
+                <p className='flex-4 text-end text-sm opacity-70'>{hour.temp_c}°C</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
+
     </div>
   )
 }
