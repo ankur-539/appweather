@@ -48,7 +48,7 @@ function App() {
               </p>
             </div>
             <div className='flex items-center gap-5'>
-              <p className='text-lg opacity-75 flex flex-col text-center'><img src={weather?.current?.condition.icon} alt="" />{weather?.current?.condition.text}</p>
+              <div className='text-lg opacity-75  flex flex-col text-center'><img src={weather?.current?.condition.icon} alt="" className='w-20' /><p className="w-20">{weather?.current?.condition.text}</p></div>
               <p className='text-8xl font-medium fnt-1'>{weather?.current?.temp_c}°C</p>
             </div>
           </div>

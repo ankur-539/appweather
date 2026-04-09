@@ -1,5 +1,5 @@
 @import "tailwindcss";
 
 .scroll-hidden::-webkit-scrollbar {
-  display: none;             /* Chrome */
+  display: none;            
 }
