@@ -81,7 +81,7 @@ function App() {
         </div>
 
 
-        <div className='right-container  bg-amber-100/20 rounded-2xl w-lg flex flex-col gap-4 px-8 py-5 h-[615px]  overflow-auto scroll-hidden'>
+        <div className='right-container  bg-amber-100/20 rounded-2xl w-lg flex flex-col gap-4 px-8 py-5 h-[628px]  overflow-auto scroll-hidden'>
           <div className='flex justify-between'><p className='font-medium text-2xl pb-2 fnt-3'>Hourly Forecast ~</p></div>
           {weather?.forecast?.forecastday?.[0]?.hour?.map((hour, index) => {
             const time = new Date(hour.time).toLocaleTimeString("en-US", {
