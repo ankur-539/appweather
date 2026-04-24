@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function App() {
 
-  const [city, setCity] = useState("siwan");
+  const [city, setCity] = useState("bihar");
   const [weather, setWeather] = useState(null);
 
   const api = (cityName) => {
@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     api(city)
-  }, [])
+  }, [city])
 
 
 
