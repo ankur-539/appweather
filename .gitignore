@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+# REACT_APP_API_KEY = 7f5d3ca8630544789e610042262404
