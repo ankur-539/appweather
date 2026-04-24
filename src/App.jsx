@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function App() {
 
-  const [city, setCity] = useState("bihar");
+  const [city, setCity] = useState("patna");
   const [weather, setWeather] = useState(null);
 
   const api = (cityName) => {
