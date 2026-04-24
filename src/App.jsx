@@ -10,9 +10,9 @@ function App() {
   const [city, setCity] = useState("patna");
   const [weather, setWeather] = useState(null);
 
-  const api = (cityName) => {
+  const api = async (cityName) => {
     const API_KEY = process.env.REACT_APP_API_KEY;
-    axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityName}&days=7&aqi=no&alerts=no`).then((d) => {
+    await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${cityName}&days=7&aqi=no&alerts=no`).then((d) => {
       // console.log(d.data);
       setWeather(d.data);
     })
